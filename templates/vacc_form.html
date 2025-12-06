@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>Add Vaccination</h2>
+<form method="post">
+  <label>Child</label>
+  <select name="child_id" required>
+    <option value="">-- select --</option>
+    {% for c in children %}
+      <option value="{{ c.child_id }}">{{ c.name }}</option>
+    {% endfor %}
+  </select>
+
+  <label>Vaccine</label>
+  <select name="vaccine_id" required>
+    <option value="">-- select --</option>
+    {% for v in vaccines %}
+      <option value="{{ v.vaccine_id }}">{{ v.vaccine_name }}</option>
+    {% endfor %}
+  </select>
+
+  <label>Dose Number</label>
+  <input type="number" name="dose_number" required>
+
+  <label>Date Given</label>
+  <input type="date" name="date_given" required>
+
+  <label>Country Given</label>
+  <input type="text" name="country_given">
+
+  <label>Clinic Name</label>
+  <input type="text" name="clinic_name">
+
+  <button class="btn" type="submit">Save</button>
+</form>
+{% endblock %}

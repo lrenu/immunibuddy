@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>Travel Advisory</h1>
+
+<div class="card">
+  <p><strong>Child:</strong> {{ child.name }}</p>
+  <p><strong>Destination:</strong> {{ trip.destination_country }}</p>
+  <p><strong>Travel Date:</strong> {{ trip.travel_date }}</p>
+</div>
+
+<h2>Required Vaccines for {{ trip.destination_country }}</h2>
+{% if required %}
+<ul>
+  {% for v in required %}
+  <li>{{ v.vaccine_name }}</li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>No special vaccines required.</p>
+{% endif %}
+
+<h2>Missing Vaccines</h2>
+{% if missing %}
+<div class="alert danger">
+  <strong>⚠️ Action Required!</strong> The following vaccines are missing:
+  <ul>
+    {% for v in missing %}
+    <li>{{ v.vaccine_name }}</li>
+    {% endfor %}
+  </ul>
+  <a href="{{ url_for('vaccination_add') }}" class="btn">Add Vaccination</a>
+</div>
+{% else %}
+<div class="alert success">
+  <strong>✓ All Clear!</strong> All required vaccines are completed.
+</div>
+{% endif %}
+
+<a href="{{ url_for('child_detail', child_id=trip.child_id) }}" class="btn">Back to Child</a>
+{% endblock %}

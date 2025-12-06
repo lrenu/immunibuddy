@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>{{ child.name }}</h1>
+
+<div class="card">
+  <p><strong>DOB:</strong> {{ child.dob }}</p>
+  <p><strong>Country:</strong> {{ child.current_country }}</p>
+  <p><strong>Passport:</strong> {{ child.passport_number }}</p>
+  <p><strong>Parent Email:</strong> {{ child.parent_mailid }}</p>
+  <p><strong>Phone:</strong> {{ child.parent_primary_mobile_no }}</p>
+</div>
+
+<div class="actions">
+  <a href="{{ url_for('child_edit', child_id=child.child_id) }}" class="btn">Edit Child</a>
+  <a href="{{ url_for('vaccination_add') }}" class="btn">Add Vaccine</a>
+  <a href="{{ url_for('travel_add') }}" class="btn">Plan Travel</a>
+  <a href="{{ url_for('qr_codes') }}" class="btn">Generate QR</a>
+</div>
+
+<h2>Vaccination History</h2>
+{% if vaccinations %}
+<table>
+  <tr><th>Vaccine</th><th>Dose</th><th>Date</th><th>Country</th><th>Clinic</th><th>Actions</th></tr>
+  {% for v in vaccinations %}
+  <tr>
+    <td>{{ v.vaccine_name }}</td>
+    <td>{{ v.dose_number }}</td>
+    <td>{{ v.date_given }}</td>
+    <td>{{ v.country_given }}</td>
+    <td>{{ v.clinic_unique_name }}</td>
+    <td>
+      <a href="{{ url_for('vaccination_edit', record_id=v.record_id) }}" class="btn small">Edit</a>
+      <a href="{{ url_for('vaccination_delete', record_id=v.record_id) }}" class="btn small danger" onclick="return confirm('Delete this vaccination?')">Delete</a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<p>No vaccinations recorded yet.</p>
+{% endif %}
+
+<h2>Travel Plans</h2>
+{% if travels %}
+<table>
+  <tr><th>Destination</th><th>Travel Date</th><th>Return Date</th><th>Advisory</th></tr>
+  {% for t in travels %}
+  <tr>
+    <td>{{ t.destination_country }}</td>
+    <td>{{ t.travel_date }}</td>
+    <td>{{ t.return_date }}</td>
+    <td><a href="{{ url_for('travel_advisory', trip_id=t.trip_id) }}" class="btn small">View Advisory</a></td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<p>No travel plans yet.</p>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>ImmuniBuddy</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header>
+  {% if portal == 'parent' %}
+    <div class="logo">ImmuniBuddy</div>
+    <nav>
+      <a href="{{ url_for('parent_dashboard') }}">Dashboard</a>
+      <a href="{{ url_for('child_add') }}">+ Add Child</a>
+      <a href="{{ url_for('vaccination_add') }}">+ Add Vaccine</a>
+      <a href="{{ url_for('travel_add') }}">+ Plan Travel</a>
+      <a href="{{ url_for('qr_codes') }}">QR Codes</a>
+      <a class="right" href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+  {% elif portal == 'provider' %}
+    <div class="logo">ImmuniBuddy - Provider</div>
+    <nav>
+      <a href="{{ url_for('provider_scan') }}">Scan QR</a>
+      <a href="{{ url_for('provider_log') }}">Verification Log</a>
+      <a class="right" href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+  {% elif portal == 'admin' %}
+    <div class="logo">ImmuniBuddy - Admin</div>
+    <nav>
+      <a href="{{ url_for('admin_stats') }}">Stats</a>
+      <a href="{{ url_for('admin_vaccines') }}">Manage Vaccines</a>
+      <a class="right" href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+  {% endif %}
+</header>
+
+<main>
+  {% with msgs = get_flashed_messages(with_categories=true) %}
+    {% if msgs %}
+      {% for cat, msg in msgs %}
+        <div class="flash {{ cat }}">{{ msg }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  {% block content %}{% endblock %}
+</main>
+
+</body>
+</html>

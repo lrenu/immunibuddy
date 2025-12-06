@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>Manage Vaccines</h2>
+
+<form method="post">
+  <label>Vaccine Name</label>
+  <input type="text" name="vaccine_name" required>
+  <label>Doses Required</label>
+  <input type="number" name="doses_required" required>
+  <label>Min Age (months)</label>
+  <input type="number" name="min_age_months">
+  <button class="btn" type="submit">Add Vaccine</button>
+</form>
+
+<table>
+  <tr><th>ID</th><th>Name</th><th>Doses</th><th>Min Age</th><th>Action</th></tr>
+  {% for v in vaccines %}
+    <tr>
+      <td>{{ v.vaccine_id }}</td>
+      <td>{{ v.vaccine_name }}</td>
+      <td>{{ v.doses_required }}</td>
+      <td>{{ v.min_age_months }}</td>
+      <td>
+        <a href="{{ url_for('admin_vaccine_delete', vaccine_id=v.vaccine_id) }}"
+           onclick="return confirm('Delete vaccine?');">Delete</a>
+      </td>
+    </tr>
+  {% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>Dashboard</h1>
+
+<div class="stats">
+  <div class="stat-card">
+    <h3>Children</h3>
+    <p>{{ children_count }}</p>
+  </div>
+  <div class="stat-card">
+    <h3>Pending Vaccines</h3>
+    <p>{{ pending_vaccines }}</p>
+  </div>
+  <div class="stat-card">
+    <h3>Active QR Codes</h3>
+    <p>{{ active_qr }}</p>
+  </div>
+</div>
+
+<h2>Your Children</h2>
+{% if children %}
+<table>
+  <tr>
+    <th>Name</th>
+    <th>DOB</th>
+    <th>Country</th>
+    <th>Actions</th>
+  </tr>
+  {% for c in children %}
+  <tr>
+    <td>{{ c.name }}</td>
+    <td>{{ c.dob }}</td>
+    <td>{{ c.current_country }}</td>
+    <td>
+      <a href="{{ url_for('child_detail', child_id=c.child_id) }}" class="btn small">View</a>
+      <a href="{{ url_for('child_edit', child_id=c.child_id) }}" class="btn small">Edit</a>
+      <a href="{{ url_for('child_delete', child_id=c.child_id) }}" class="btn small danger" onclick="return confirm('Delete this child?')">Delete</a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<p>No children added yet.</p>
+{% endif %}
+
+{% endblock %}

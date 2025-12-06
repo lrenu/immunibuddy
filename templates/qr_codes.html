@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>QR Code Management</h2>
+
+<form method="post" class="inline-form">
+  <label>Generate QR for Child:</label>
+  <select name="child_id" required>
+    {% for c in children %}
+      <option value="{{ c.child_id }}">{{ c.name }}</option>
+    {% endfor %}
+  </select>
+  <button class="btn" type="submit">Generate New</button>
+</form>
+
+<table>
+  <tr>
+    <th>ID</th><th>Child</th><th>Hash</th>
+    <th>Created</th><th>Expiry</th><th>Active</th><th>Accesses</th><th>Actions</th>
+  </tr>
+  {% for q in qrs %}
+    <tr>
+      <td>{{ q.qr_id }}</td>
+      <td>{{ q.child_name }}</td>
+      <td>{{ q.qr_code_hash }}</td>
+      <td>{{ q.created_date }}</td>
+      <td>{{ q.expiry_date }}</td>
+      <td>{{ 'Yes' if q.is_active else 'No' }}</td>
+      <td>{{ q.access_count }}</td>
+      <td>
+        <a href="{{ url_for('qr_toggle', qr_id=q.qr_id) }}">Toggle</a> |
+        <a href="{{ url_for('qr_delete', qr_id=q.qr_id) }}"
+           onclick="return confirm('Delete QR?');">Delete</a>
+      </td>
+    </tr>
+  {% else %}
+    <tr><td colspan="8">No QR codes yet.</td></tr>
+  {% endfor %}
+</table>
+{% endblock %}

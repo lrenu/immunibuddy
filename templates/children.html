@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>Children</h2>
+
+<table>
+  <tr>
+    <th>ID</th><th>Name</th><th>DOB</th><th>Country</th><th>Actions</th>
+  </tr>
+  {% for c in children %}
+    <tr>
+      <td>{{ c.child_id }}</td>
+      <td><a href="{{ url_for('child_detail', child_id=c.child_id) }}">{{ c.name }}</a></td>
+      <td>{{ c.dob }}</td>
+      <td>{{ c.current_country }}</td>
+      <td>
+        <a href="{{ url_for('child_edit', child_id=c.child_id) }}">Edit</a> |
+        <a href="{{ url_for('child_delete', child_id=c.child_id) }}"
+           onclick="return confirm('Delete this child?');">Delete</a>
+      </td>
+    </tr>
+  {% endfor %}
+</table>
+{% endblock %}

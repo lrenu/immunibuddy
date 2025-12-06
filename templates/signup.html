@@ -1,0 +1,26 @@
+<!-- templates/signup.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Signup - ImmuniBuddy</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="auth-body">
+  <div class="card auth-card">
+    <h2>Parent Signup</h2>
+    <form method="post">
+      <label>Name</label>
+      <input type="text" name="name" required>
+      <label>Email</label>
+      <input type="email" name="email" required>
+      <label>Password</label>
+      <input type="password" name="password" required>
+      <label>Confirm Password</label>
+      <input type="password" name="confirm" required>
+      <button class="btn" type="submit">Sign Up</button>
+    </form>
+    <p>Already have account? <a href="{{ url_for('login') }}">Login</a></p>
+  </div>
+</body>
+</html>

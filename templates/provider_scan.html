@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>Scan QR</h2>
+
+<form method="post">
+  <label>QR Code Hash</label>
+  <input type="text" name="qr_hash" required>
+  <button class="btn" type="submit">Verify</button>
+</form>
+
+{% if result %}
+  {% if result[0] == 'invalid' %}
+    <div class="card error">
+      <h3>INVALID / EXPIRED / DEACTIVATED</h3>
+      <p>{{ result[1] }}</p>
+    </div>
+  {% else %}
+    {% set data = result[1] %}
+    <div class="card success">
+      <h3>VERIFIED Child</h3>
+      <p>Name: {{ data.qr.name }}</p>
+      <p>DOB: {{ data.qr.dob }}</p>
+      <p>Country: {{ data.qr.current_country }}</p>
+    </div>
+
+    <h3>Vaccinations</h3>
+    <table>
+      <tr><th>Vaccine</th><th>Dose</th><th>Date</th></tr>
+      {% for v in data.vaccs %}
+        <tr>
+          <td>{{ v.vaccine_name }}</td>
+          <td>{{ v.dose_number }}</td>
+          <td>{{ v.date_given }}</td>
+        </tr>
+      {% else %}
+        <tr><td colspan="3">No vaccination records.</td></tr>
+      {% endfor %}
+    </table>
+  {% endif %}
+{% endif %}
+{% endblock %}

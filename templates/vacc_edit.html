@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>Edit Vaccination</h1>
+
+<form method="POST">
+  <label>Vaccine</label>
+  <select name="vaccine_id" required>
+    {% for v in vaccines %}
+    <option value="{{ v.vaccine_id }}" {% if v.vaccine_id == record.vaccine_id %}selected{% endif %}>{{ v.vaccine_name }}</option>
+    {% endfor %}
+  </select>
+
+  <label>Dose Number</label>
+  <input type="number" name="dose_number" value="{{ record.dose_number }}" required>
+
+  <label>Date Given</label>
+  <input type="date" name="date_given" value="{{ record.date_given }}" required>
+
+  <label>Country Given</label>
+  <input type="text" name="country_given" value="{{ record.country_given }}">
+
+  <label>Clinic Name</label>
+  <input type="text" name="clinic_name" value="{{ record.clinic_unique_name }}">
+
+  <button type="submit" class="btn">Save</button>
+  <a href="{{ url_for('parent_dashboard') }}" class="btn">Cancel</a>
+</form>
+{% endblock %}

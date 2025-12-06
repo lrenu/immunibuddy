@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>Admin Stats</h2>
+
+<table>
+  <tr><th>Metric</th><th>Value</th></tr>
+  <tr><td>Total Children</td><td>{{ total_children }}</td></tr>
+  <tr><td>Total Vaccines Given</td><td>{{ total_vaccines }}</td></tr>
+  <tr><td>Active QR Codes</td><td>{{ active_qr }}</td></tr>
+  <tr><td>Travel Plans</td><td>{{ travel_plans }}</td></tr>
+</table>
+{% endblock %}

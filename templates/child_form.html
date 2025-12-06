@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>{{ 'Add Child' if mode == 'add' else 'Edit Child' }}</h2>
+
+<form method="post">
+  <label>Name</label>
+  <input type="text" name="name" required value="{{ child.name if child else '' }}">
+
+  <label>DOB</label>
+  <input type="date" name="dob" required value="{{ child.dob if child else '' }}">
+
+  <label>Country</label>
+  <input type="text" name="country" value="{{ child.current_country if child else '' }}">
+
+  <label>Passport Number</label>
+  <input type="text" name="passport" value="{{ child.passport_number if child else '' }}">
+
+  <label>Parent Email</label>
+  <input type="email" name="parent_email" value="{{ child.parent_mailid if child else '' }}">
+
+  <label>Parent Phone</label>
+  <input type="text" name="phone" value="{{ child.parent_primary_mobile_no if child else '' }}">
+
+  <button class="btn" type="submit">Save</button>
+</form>
+{% endblock %}

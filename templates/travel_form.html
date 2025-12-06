@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>Add Travel Plan</h1>
+
+<form method="POST">
+  <label>Child</label>
+  <select name="child_id" required>
+    <option value="">-- select --</option>
+    {% for c in children %}
+    <option value="{{ c.child_id }}">{{ c.name }}</option>
+    {% endfor %}
+  </select>
+
+  <label>Destination Country</label>
+  <input type="text" name="destination" required>
+
+  <label>Travel Date</label>
+  <input type="date" name="travel_date" required>
+
+  <label>Return Date</label>
+  <input type="date" name="return_date">
+
+  <button type="submit" class="btn">Save</button>
+</form>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>Verification Log</h2>
+<table>
+  <tr><th>Time</th><th>Provider</th><th>Child</th><th>Status</th></tr>
+  {% for l in logs %}
+    <tr>
+      <td>{{ l.created_at }}</td>
+      <td>{{ l.provider_name }}</td>
+      <td>{{ l.child_name }}</td>
+      <td>{{ l.status }}</td>
+    </tr>
+  {% else %}
+    <tr><td colspan="4">No verifications yet.</td></tr>
+  {% endfor %}
+</table>
+{% endblock %}
